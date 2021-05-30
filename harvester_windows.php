@@ -203,14 +203,14 @@ function log_last($search,$title){
     $handle = fopen($file, "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
-            $pos = strpos($line, $search);
-            $pos2 = strpos($line, date('Y-m-d'));
-            if ($pos !== false && $pos2 !== false) {
+            //$pos = strpos($line, $search);
+            //$pos2 = strpos($line, date('Y-m-d'));
+            //if ($pos !== false && $pos2 !== false) {
                      $parts = explode($search,$line);
                      $count = trim($parts[1]);
                      //$last = "$title: $count";
                     $last = $count;
-            } 
+            //} 
         }
         fclose($handle);
     } else {
@@ -229,14 +229,14 @@ while(true)
     $hostname=gethostname();
     echo "\r\n \r\n \r\n";
     echo "Harvester Stats ".$datetime." ".$hostname." \r\n";
-    $x1 = log_count('1 plots were eligible','*');
-    $x2 = log_count('2 plots were eligible','**');
-    $x3 = log_count('3 plots were eligible','***');
-    $x4 = log_count('4 plots were eligible','****');
-    $proofs = log_search('Found 1 proofs.','!!!!!!!!');
-    $active_ploting = ps_count('chia plots create');
-    $disk_temp_free = disk_stats('nvme');
-    $disk_final_free = final_disk_stats('nvme');
+   // $x1 = log_count('1 plots were eligible','*');
+  //  $x2 = log_count('2 plots were eligible','**');
+  //  $x3 = log_count('3 plots were eligible','***');
+  //  $x4 = log_count('4 plots were eligible','****');
+   // $proofs = log_search('Found 1 proofs.','!!!!!!!!');
+  //  $active_ploting = ps_count('chia plots create');
+ //   $disk_temp_free = disk_stats('nvme');
+  //  $disk_final_free = final_disk_stats('nvme');
     $total_plots = log_last('Total','Last Plot Count');
     uplink('Windows',$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free);
     sleep(120); // sleep for 240 sec
