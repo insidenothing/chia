@@ -65,12 +65,16 @@ $break='
     foreach($a as $k => $v){
         $pos = strpos($v, 'Seagate');
         $pos2 = strpos($v, 'Expansion');
-        if ($pos !== false || $pos2 !== false) {
+        if ($pos !== false) {
             echo "$v  \r\n";
             $i++;
         } 
-    echo "Final Drives: $i \r\n";
+        if ($pos2 !== false) {
+            echo "$v  \r\n";
+            $i++;
+        } 
     }
+    echo "Final Drives: $i \r\n";
 }
 function ps_count($search){ 
     $i=0;
