@@ -16,7 +16,9 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
         'disk_final_free' => "$disk_final_free"
     );
     $query = http_build_query($data);
-    $result = file_get_contents($url.'?'.$query, false, $context);
+    $encoded = urlencode($query);
+    $result = file_get_contents($url.'?'.$encoded, false, $context);
+    var_dump($result);
     /*
     $options = array(
       'http' => array(
