@@ -234,5 +234,5 @@ while(true)
     $disk_final_free = final_disk_stats('nvme');
     $total_plots = log_last('Total','Last Plot Count');
     uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free)
-    sleep(60); // sleep for 240 sec
+    sleep(120); // sleep for 240 sec
 }
