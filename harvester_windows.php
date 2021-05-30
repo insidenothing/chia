@@ -25,7 +25,10 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
         )
     );
     $context = stream_context_create($opts);
-    $stream = fopen($url, 'r', false, $context);
+    $response = file_get_contents(
+    $target = "$url",
+    $use_include_path = false,
+    $context);
    //var_dump(stream_get_meta_data($stream));
 }
 function log_search($search,$stars){ 
