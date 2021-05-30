@@ -38,17 +38,17 @@ $break='
             $pos = strpos($v, $search);
             $pos2 = strpos($v, 'T');
             if ($pos !== false && $pos2 !== false) {
-                echo "$k $v  \r\n";
+               // echo "$k $v  \r\n";
                 $i++;
             } 
     }
     echo "NVME TB: $i \r\n";
-    if ($i==0){
+    if ($i==0){ // no TB NVME found, look for MB
         foreach($a as $k => $v){
                 $pos = strpos($v, $search);
                 $pos2 = strpos($v, 'M');
                 if ($pos !== false && $pos2 !== false) {
-                    echo "$k $v  \r\n";
+               //     echo "$k $v  \r\n";
                     $i++;
                 } 
         }
@@ -77,7 +77,7 @@ $break='
     foreach($a as $k => $v){
             $pos = strpos($v, $search);
             if ($pos !== false) {
-                echo "$k $v  \r\n";
+             //   echo "$k $v  \r\n";
                 $i++;
             } 
     }
