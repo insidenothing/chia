@@ -32,7 +32,7 @@ function log_count($search,$stars){
     } else {
         // error opening the file.
     } 
-    echo "$stars $search $i times today ".'\n';
+    echo "$stars $search $i times today \r\n";
 }
 function log_last($search,$title){ 
     $file = '/home/dad/.chia/mainnet/log/debug.log';
@@ -51,7 +51,7 @@ function log_last($search,$title){
     } else {
         // error opening the file.
     } 
-    echo "$last ".'\n';
+    echo "$last \r\n";
 }
 log_count('1 plots were eligible','*');
 log_count('2 plots were eligible','**');
