@@ -24,6 +24,15 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
     );
     $context  = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
+    $options = array(
+      'http' => array(
+        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+        'method'  => 'GET',
+        'content' => http_build_query($data),
+      ),
+    );
+    $context  = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
 }
 function log_search($search,$stars){ 
     ob_start();
