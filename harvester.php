@@ -189,7 +189,7 @@ function log_count($search,$stars){
     } else {
         // error opening the file.
     } 
-    echo "$stars $search $i times today \r\n";
+    echo "$i";
     $buffer = ob_get_clean();
     echo $buffer;
     return $buffer;
