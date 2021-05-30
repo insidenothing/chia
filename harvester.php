@@ -18,4 +18,5 @@ function log_search($search,$stars){
 log_search('1 plots were eligible','*');
 log_search('2 plots were eligible','**');
 log_search('3 plots were eligible','***');
+log_search('4 plots were eligible','***');
 log_search('Found 1 proofs.','!!!!');
