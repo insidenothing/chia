@@ -53,6 +53,7 @@ function log_last($search,$title){
     } 
     echo "$last \r\n \r\n \r\n";
 }
+echo "\r\n \r\n \r\n";
 echo "Harvester Stats ".date('Y-m-d')." ".gethostname()." \r\n";
 log_count('1 plots were eligible','*');
 log_count('2 plots were eligible','**');
