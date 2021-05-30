@@ -5,7 +5,8 @@ function log_search($search,$stars){
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
             $pos = strpos($line, $search);
-            if ($pos !== false) {
+            $pos2 = strpos($line, date('Y-m-d'));
+            if ($pos !== false && $pos2 !== false) {
                      echo "$stars $line ";
             } 
         }
