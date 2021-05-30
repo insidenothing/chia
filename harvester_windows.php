@@ -20,7 +20,7 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
     $opts = array('http' =>
         array(
             'method'  => 'POST',
-            'header'  => 'Content-type: application/application/json',
+            'header'  => 'Content-type: application/json',
             'content' => $jsonDataEncoded
         )
     );
