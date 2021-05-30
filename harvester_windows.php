@@ -15,13 +15,13 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
         'disk_temp_free' => "$disk_temp_free",
         'disk_final_free' => "$disk_final_free"
     );
-    //$jsonDataEncoded = json_encode($jsonData);
-    $postdata = http_build_query($jsonData);
+    $jsonDataEncoded = json_encode($jsonData);
+    //$postdata = http_build_query($jsonData, '', '&');
     $opts = array('http' =>
         array(
             'method'  => 'POST',
-            'header'  => 'Content-type: application/x-www-form-urlencoded',
-            'content' => $postdata
+            'header'  => 'Content-type: application/application/json',
+            'content' => $jsonDataEncoded
         )
     );
     $context = stream_context_create($opts);
