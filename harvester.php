@@ -49,7 +49,7 @@ $break='
                 $i++;
             } 
     }
-    echo "NVME TEMP TB: $i \r\n";
+    
     if ($i==0){ // no TB NVME found, look for MB
         foreach($a as $k => $v){
                 $pos = strpos($v, $search);
@@ -60,6 +60,8 @@ $break='
                 } 
         }
         echo "NVME TEMP MB: $i \r\n";
+    }else{
+     echo "NVME TEMP TB: $i \r\n";   
     }
     $i=0;
     foreach($a as $k => $v){
