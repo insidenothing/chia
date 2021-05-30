@@ -1,6 +1,6 @@
 <?PHP
 function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free){
-    $url = 'https://www.bmorecoin.com/harvester_uplink.php';
+    $url = 'http://www.bmorecoin.com/harvester_uplink.php';
     $jsonData = array(
         'os' => "Windows",
         'datetime' => "$datetime",
