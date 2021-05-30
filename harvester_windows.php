@@ -203,14 +203,14 @@ function log_last($search,$title){
     $handle = fopen($file, "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
-            //$pos = strpos($line, $search);
+            $pos = strpos($line, $search);
             //$pos2 = strpos($line, date('Y-m-d'));
-            //if ($pos !== false && $pos2 !== false) {
-                     //$parts = explode($search,$line);
-                     //$count = $parts[1];
+            if ($pos !== false) {
+                     $parts = explode($search,$line);
+                     $count = $parts[1];
                      //$last = "$title: $count";
-                     $last = $line;
-            //} 
+                     $last = $count;
+            } 
         }
         fclose($handle);
     } else {
