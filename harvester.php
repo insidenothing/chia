@@ -36,12 +36,13 @@ $break='
     $a = explode($break,$buffer);
     foreach($a as $k => $v){
             $pos = strpos($v, $search);
-            if ($pos !== false) {
+            $pos2 = strpos($v, 'T');
+            if ($pos !== false && $pos2 !== false) {
                 echo "$k $v  \r\n";
                 $i++;
             } 
     }
-    echo "NVME: $i \r\n";
+    echo "NVME TB: $i \r\n";
 }
 function ps_count($search){ 
     $i=0;
