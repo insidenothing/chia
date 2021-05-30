@@ -1,7 +1,7 @@
 <?PHP
 function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free){
     $url = 'http://www.bmorecoin.com/harvester_uplink_windows.php';
-    $jsonData = array(
+    $data = array(
         'os' => "Windows",
         'datetime' => "$datetime",
         'hostname' => "$hostname",
@@ -15,21 +15,15 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
         'disk_temp_free' => "$disk_temp_free",
         'disk_final_free' => "$disk_final_free"
     );
-    //$jsonDataEncoded = json_encode($jsonData);
-    $postdata = http_build_query($jsonData, '', '&');
-    $opts = array('http' =>
-        array(
-            'method'  => 'POST',
-            'header'  => 'Content-type: application/x-www-form-urlencoded',
-            'content' => $postdata
-        )
+    $options = array(
+      'http' => array(
+        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+        'method'  => 'POST',
+        'content' => http_build_query($data),
+      ),
     );
-    $context = stream_context_create($opts);
-    $response = file_get_contents(
-    $target = "$url",
-    $use_include_path = false,
-    $context);
-   //var_dump(stream_get_meta_data($stream));
+    $context  = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
 }
 function log_search($search,$stars){ 
     ob_start();
