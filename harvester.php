@@ -1,12 +1,12 @@
 <?PHP
-function log_search($search){ 
+function log_search($search,$stars){ 
     $file = '/home/dad/.chia/mainnet/log/debug.log';
     $handle = fopen($file, "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
             $pos = strpos($line, $search);
             if ($pos !== false) {
-                     echo "*** $line ";
+                     echo "$stars $line ";
             } 
         }
         fclose($handle);
@@ -15,6 +15,6 @@ function log_search($search){
     } 
 
 }
-log_search('1 plots were eligible');
-log_search('2 plots were eligible');
-log_search('3 plots were eligible');
+log_search('1 plots were eligible','*');
+log_search('2 plots were eligible','**');
+log_search('3 plots were eligible','***');
