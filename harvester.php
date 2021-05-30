@@ -1,5 +1,5 @@
 <?PHP
-$file = '~/.chia/mainnet/log/debug.log';
+$file = '/home/dad/.chia/mainnet/log/debug.log';
 $handle = fopen($file, "r");
 if ($handle) {
     while (($line = fgets($handle)) !== false) {
