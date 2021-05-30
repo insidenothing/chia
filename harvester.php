@@ -1,6 +1,6 @@
 <?PHP
-$file = '/home/dad/.chia/mainnet/log/debug.log';
 function log_search($search){ 
+    $file = '/home/dad/.chia/mainnet/log/debug.log';
     $handle = fopen($file, "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
