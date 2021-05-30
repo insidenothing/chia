@@ -207,9 +207,9 @@ function log_last($search,$title){
             //$pos2 = strpos($line, date('Y-m-d'));
             //if ($pos !== false && $pos2 !== false) {
                      $parts = explode($search,$line);
-                     $count = trim($parts[1]);
+                     $count = $parts[1];
                      //$last = "$title: $count";
-                    $last = $count;
+                     $last = $count;
             //} 
         }
         fclose($handle);
