@@ -206,10 +206,10 @@ function log_last($search,$title){
             //$pos = strpos($line, $search);
             //$pos2 = strpos($line, date('Y-m-d'));
             //if ($pos !== false && $pos2 !== false) {
-                     $parts = explode($search,$line);
-                     $count = $parts[1];
+                     //$parts = explode($search,$line);
+                     //$count = $parts[1];
                      //$last = "$title: $count";
-                     $last = $count;
+                     $last = $line;
             //} 
         }
         fclose($handle);
