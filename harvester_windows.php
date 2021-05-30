@@ -20,6 +20,7 @@ function file_post_contents($url, $data, $username = null, $password = null)
 function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free){
     $url = 'https://www.bmorecoin.com/harvester_uplink.php';
     $jsonData = array(
+        'os' => "Windows",
         'datetime' => "$datetime",
         'hostname' => "$hostname",
         'total_plots' => "$total_plots",
@@ -46,7 +47,7 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
 }
 function log_search($search,$stars){ 
     ob_start();
-    $file = '/home/dad/.chia/mainnet/log/debug.log';
+    $file = 'C:\Users\Patrick\.chia\mainnet\log\debug.log';
     $handle = fopen($file, "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
@@ -196,7 +197,7 @@ $break='
 }
 function log_count($search,$stars){ 
     ob_start();
-    $file = '/home/dad/.chia/mainnet/log/debug.log';
+    $file = 'C:\Users\Patrick\.chia\mainnet\log\debug.log';
     $handle = fopen($file, "r");
     $i=0;
     if ($handle) {
@@ -219,7 +220,7 @@ function log_count($search,$stars){
 }
 function log_last($search,$title){ 
     ob_start();
-    $file = '/home/dad/.chia/mainnet/log/debug.log';
+    $file = 'C:\Users\Patrick\.chia\mainnet\log\debug.log';
     $handle = fopen($file, "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
@@ -258,6 +259,6 @@ while(true)
     $disk_temp_free = disk_stats('nvme');
     $disk_final_free = final_disk_stats('nvme');
     $total_plots = log_last('Total','Last Plot Count');
-    uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free);
+    uplink('Windows',$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free);
     sleep(120); // sleep for 240 sec
 }
