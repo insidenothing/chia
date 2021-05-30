@@ -205,14 +205,16 @@ function log_last($search,$title){
             if ($pos !== false && $pos2 !== false) {
                      $parts = explode($search,$line);
                      $count = trim($parts[1]);
-                     $last = "$title: $count";
+                     //$last = "$title: $count";
+                    $last = $count;
             } 
         }
         fclose($handle);
     } else {
         // error opening the file.
     } 
-    echo "$last \r\n \r\n \r\n";
+    echo str_replace('plots','',trim($last));
+    //echo "$last \r\n \r\n \r\n";
     $buffer = ob_get_clean();
     echo $buffer;
     return $buffer;
