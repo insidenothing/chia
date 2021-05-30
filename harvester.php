@@ -15,6 +15,33 @@ function log_search($search,$stars){
         // error opening the file.
     } 
 }
+function disk_stats($search){ 
+  ob_start();
+    //echo '<pre>';
+
+// Outputs all the result of shellcommand "ls", and returns
+// the last output line into $last_line. Stores the return value
+// of the shell command in $retval.
+$last_line = system('df -h', $retval);
+
+// Printing additional info
+//echo '
+//</pre>
+//<hr />Last line of the output: ' . $last_line . '
+//<hr />Return value: ' . $retval; 
+    $buffer = ob_get_clean();
+$break='
+';
+    $a = explode($break,$buffer);
+    foreach($a as $k => $v){
+            $pos = strpos($v, $search);
+            if ($pos !== false) {
+                echo "$k $v  \r\n";
+                $i++;
+            } 
+    }
+    echo "NVME: $i \r\n";
+}
 function ps_count($search){ 
   ob_start();
     //echo '<pre>';
@@ -88,4 +115,5 @@ log_count('3 plots were eligible','***');
 log_count('4 plots were eligible','****');
 log_search('Found 1 proofs.','!!!!!!!!');
 ps_count('chia plots create');
+disk_stats('nvme');
 log_last('Total','Last Plot Count');
