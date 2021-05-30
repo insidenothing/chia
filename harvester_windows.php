@@ -1,7 +1,24 @@
 <?PHP
+
+
+function file_post_contents($url, $data, $username = null, $password = null)
+{
+    
+
+    
+
+    if($username && $password)
+    {
+        $opts['http']['header'] = ("Authorization: Basic " . base64_encode("$username:$password"));
+    }
+
+    $context = stream_context_create($opts);
+    return file_get_contents($url, false, $context);
+}
+
+
 function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free){
     $url = 'https://www.bmorecoin.com/harvester_uplink.php';
-    $ch = curl_init($url);
     $jsonData = array(
         'datetime' => "$datetime",
         'hostname' => "$hostname",
@@ -16,10 +33,16 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
         'disk_final_free' => "$disk_final_free"
     );
     $jsonDataEncoded = json_encode($jsonData);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json')); 
-    $result = curl_exec($ch);   
+    $postdata = http_build_query($jsonDataEncoded);
+    $opts = array('http' =>
+        array(
+            'method'  => 'POST',
+            'header'  => 'Content-type: application/x-www-form-urlencoded',
+            'content' => $postdata
+        )
+    );
+    $context = stream_context_create($opts);
+    return file_get_contents($url, false, $context); 
 }
 function log_search($search,$stars){ 
     ob_start();
