@@ -15,6 +15,33 @@ function log_search($search,$stars){
         // error opening the file.
     } 
 }
+function ps_count($search){ 
+  ob_start();
+    //echo '<pre>';
+
+// Outputs all the result of shellcommand "ls", and returns
+// the last output line into $last_line. Stores the return value
+// of the shell command in $retval.
+$last_line = system('ps -h', $retval);
+
+// Printing additional info
+//echo '
+//</pre>
+//<hr />Last line of the output: ' . $last_line . '
+//<hr />Return value: ' . $retval; 
+    $buffer = ob_get_clean();
+$break='
+';
+    $a = explode($break,$buffer);
+    foreach( as $k => $v){
+            $pos = strpos($v, $search);
+            if ($pos !== false) {
+                echo "$k $v  \r\n";
+                $i++;
+            } 
+    }
+    echo "Active Plotting: $i \r\n";
+}
 function log_count($search,$stars){ 
     $file = '/home/dad/.chia/mainnet/log/debug.log';
     $handle = fopen($file, "r");
@@ -60,4 +87,5 @@ log_count('2 plots were eligible','**');
 log_count('3 plots were eligible','***');
 log_count('4 plots were eligible','****');
 log_search('Found 1 proofs.','!!!!!!!!');
+ps_count('chia plots create');
 log_last('Total','Last Plot Count');
