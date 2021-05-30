@@ -15,6 +15,9 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
         'disk_temp_free' => "$disk_temp_free",
         'disk_final_free' => "$disk_final_free"
     );
+    $query = http_build_query($data);
+    $result = file_get_contents($url.'?'.$query, false, $context);
+    /*
     $options = array(
       'http' => array(
         'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -33,6 +36,7 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
     );
     $context  = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
+    */
 }
 function log_search($search,$stars){ 
     ob_start();
