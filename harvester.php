@@ -16,6 +16,7 @@ function log_search($search,$stars){
     } 
 }
 function disk_stats($search){ 
+    $i=0;
   ob_start();
     //echo '<pre>';
 
@@ -43,6 +44,7 @@ $break='
     echo "NVME: $i \r\n";
 }
 function ps_count($search){ 
+    $i=0;
   ob_start();
     //echo '<pre>';
 
