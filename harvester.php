@@ -33,7 +33,7 @@ $last_line = system('ps -h', $retval);
 $break='
 ';
     $a = explode($break,$buffer);
-    foreach( as $k => $v){
+    foreach($a as $k => $v){
             $pos = strpos($v, $search);
             if ($pos !== false) {
                 echo "$k $v  \r\n";
