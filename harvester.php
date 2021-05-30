@@ -1,10 +1,19 @@
 <?PHP
-function uplink(){
+function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free){
     $url = 'https://www.bmorecoin.com/harvester_uplink.php';
     $ch = curl_init($url);
     $jsonData = array(
-        'x1' => 'xOne',
-        'x2' => 'xTwo'
+        'datetime' => "$datetime",
+        'hostname' => "$hostname",
+        'total_plots' => "$total_plots",
+        'proofs' => "$proofs",
+        'x1' => "$x1",
+        'x2' => "$x2",
+        'x3' => "$x3",
+        'x4' => "$x4",
+        'active_ploting' => "$active_ploting",
+        'disk_temp_free' => "$disk_temp_free",
+        'disk_final_free' => "$disk_final_free"
     );
     $jsonDataEncoded = json_encode($jsonData);
     curl_setopt($ch, CURLOPT_POST, 1);
@@ -13,6 +22,7 @@ function uplink(){
     $result = curl_exec($ch);   
 }
 function log_search($search,$stars){ 
+    ob_start();
     $file = '/home/dad/.chia/mainnet/log/debug.log';
     $handle = fopen($file, "r");
     if ($handle) {
@@ -27,8 +37,12 @@ function log_search($search,$stars){
     } else {
         // error opening the file.
     } 
+        $buffer = ob_get_clean();
+    echo $buffer;
+    return $buffer;
 }
 function disk_stats($search){ 
+    ob_start();
     $i=0;
   ob_start();
     //echo '<pre>';
@@ -76,6 +90,37 @@ $break='
     }else{
      echo "NVME TEMP TB: $i \r\n";   
     }
+        $buffer = ob_get_clean();
+    echo $buffer;
+    return $buffer;
+}
+function final_disk_stats($search){ 
+    ob_start();
+    $i=0;
+  ob_start();
+    //echo '<pre>';
+
+// Outputs all the result of shellcommand "ls", and returns
+// the last output line into $last_line. Stores the return value
+// of the shell command in $retval.
+$last_line = system('df -h', $retval);
+
+// Printing additional info
+//echo '
+//</pre>
+//<hr />Last line of the output: ' . $last_line . '
+//<hr />Return value: ' . $retval; 
+    $buffer = ob_get_clean();
+$break='
+';
+    $a = explode($break,$buffer);
+    foreach($a as $k => $v){
+            $pos2 = strpos($v, 'Avail');
+            if ($pos2 !== false) {
+                $t = "$v  \r\n";
+
+            } 
+    }
     $i=0;
     foreach($a as $k => $v){
         $pos = strpos($v, 'Seagate');
@@ -90,8 +135,12 @@ $break='
         } 
     }
     echo "Final Drives: $i \r\n";
+        $buffer = ob_get_clean();
+    echo $buffer;
+    return $buffer;
 }
 function ps_count($search){ 
+    ob_start();
     $i=0;
   ob_start();
     //echo '<pre>';
@@ -118,8 +167,12 @@ $break='
             } 
     }
     echo "Active Plotting: $i \r\n";
+        $buffer = ob_get_clean();
+    echo $buffer;
+    return $buffer;
 }
 function log_count($search,$stars){ 
+    ob_start();
     $file = '/home/dad/.chia/mainnet/log/debug.log';
     $handle = fopen($file, "r");
     $i=0;
@@ -137,8 +190,12 @@ function log_count($search,$stars){
         // error opening the file.
     } 
     echo "$stars $search $i times today \r\n";
+    $buffer = ob_get_clean();
+    echo $buffer;
+    return $buffer;
 }
 function log_last($search,$title){ 
+    ob_start();
     $file = '/home/dad/.chia/mainnet/log/debug.log';
     $handle = fopen($file, "r");
     if ($handle) {
@@ -156,20 +213,26 @@ function log_last($search,$title){
         // error opening the file.
     } 
     echo "$last \r\n \r\n \r\n";
+    $buffer = ob_get_clean();
+    echo $buffer;
+    return $buffer;
 }
 
 while(true)
 {
+    $datetime = date('r');
+    $hostname=gethostname();
     echo "\r\n \r\n \r\n";
-    echo "Harvester Stats ".date('r')." ".gethostname()." \r\n";
-    log_count('1 plots were eligible','*');
-    log_count('2 plots were eligible','**');
-    log_count('3 plots were eligible','***');
-    log_count('4 plots were eligible','****');
-    log_search('Found 1 proofs.','!!!!!!!!');
-    ps_count('chia plots create');
-    disk_stats('nvme');
-    log_last('Total','Last Plot Count');
-    uplink();
+    echo "Harvester Stats ".$datetime." ".$hostname." \r\n";
+    $x1 = log_count('1 plots were eligible','*');
+    $x2 = log_count('2 plots were eligible','**');
+    $x3 = log_count('3 plots were eligible','***');
+    $x4 = log_count('4 plots were eligible','****');
+    $proofs = log_search('Found 1 proofs.','!!!!!!!!');
+    $active_ploting = ps_count('chia plots create');
+    $disk_temp_free = disk_stats('nvme');
+    $disk_final_free = final_disk_stats('nvme');
+    $total_plots = log_last('Total','Last Plot Count');
+    uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free)
     sleep(60); // sleep for 240 sec
 }
