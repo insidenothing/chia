@@ -35,9 +35,9 @@ $break='
 ';
     $a = explode($break,$buffer);
     foreach($a as $k => $v){
-            $pos2 = strpos($v, 'AVAIL');
+            $pos2 = strpos($v, 'Avail');
             if ($pos2 !== false) {
-                echo "$v  \r\n";
+                $t = "$v  \r\n";
                 $i++;
             } 
     }
@@ -45,7 +45,7 @@ $break='
             $pos = strpos($v, $search);
             $pos2 = strpos($v, 'T');
             if ($pos !== false && $pos2 !== false) {
-                echo "$v  \r\n";
+                echo "$t $v  \r\n";
                 $i++;
             } 
     }
@@ -55,7 +55,7 @@ $break='
                 $pos = strpos($v, $search);
                 $pos2 = strpos($v, 'M');
                 if ($pos !== false && $pos2 !== false) {
-                    echo "$v  \r\n";
+                    echo "$t $v  \r\n";
                     $i++;
                 } 
         }
@@ -66,7 +66,7 @@ $break='
         $pos = strpos($v, 'Seagate');
         $pos2 = strpos($v, 'Expansion');
         if ($pos !== false) {
-            echo "$v  \r\n";
+            echo "$t $v  \r\n";
             $i++;
         } 
         if ($pos2 !== false) {
