@@ -144,13 +144,18 @@ function log_last($search,$title){
     } 
     echo "$last \r\n \r\n \r\n";
 }
-echo "\r\n \r\n \r\n";
-echo "Harvester Stats ".date('Y-m-d')." ".gethostname()." \r\n";
-log_count('1 plots were eligible','*');
-log_count('2 plots were eligible','**');
-log_count('3 plots were eligible','***');
-log_count('4 plots were eligible','****');
-log_search('Found 1 proofs.','!!!!!!!!');
-ps_count('chia plots create');
-disk_stats('nvme');
-log_last('Total','Last Plot Count');
+
+while(true)
+{
+    echo "\r\n \r\n \r\n";
+    echo "Harvester Stats ".date('r')." ".gethostname()." \r\n";
+    log_count('1 plots were eligible','*');
+    log_count('2 plots were eligible','**');
+    log_count('3 plots were eligible','***');
+    log_count('4 plots were eligible','****');
+    log_search('Found 1 proofs.','!!!!!!!!');
+    ps_count('chia plots create');
+    disk_stats('nvme');
+    log_last('Total','Last Plot Count');
+    sleep(60); // sleep for 240 sec
+}
