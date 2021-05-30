@@ -3,6 +3,7 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
     $url = 'https://www.bmorecoin.com/harvester_uplink.php';
     $ch = curl_init($url);
     $jsonData = array(
+        'os' => "Linux",
         'datetime' => "$datetime",
         'hostname' => "$hostname",
         'total_plots' => "$total_plots",
