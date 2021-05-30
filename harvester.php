@@ -70,7 +70,7 @@ $break='
             $i++;
         } 
         if ($pos2 !== false) {
-            echo "$v  \r\n";
+            echo "$t $v  \r\n";
             $i++;
         } 
     }
