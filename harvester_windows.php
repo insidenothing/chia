@@ -1,6 +1,6 @@
 <?PHP
 function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free){
-    $url = 'http://www.bmorecoin.com/harvester_uplink.php';
+    $url = 'http://www.bmorecoin.com/harvester_uplink_windows.php';
     $jsonData = array(
         'os' => "Windows",
         'datetime' => "$datetime",
@@ -15,13 +15,13 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
         'disk_temp_free' => "$disk_temp_free",
         'disk_final_free' => "$disk_final_free"
     );
-    $jsonDataEncoded = json_encode($jsonData);
-    //$postdata = http_build_query($jsonData, '', '&');
+    //$jsonDataEncoded = json_encode($jsonData);
+    $postdata = http_build_query($jsonData, '', '&');
     $opts = array('http' =>
         array(
             'method'  => 'POST',
-            'header'  => 'Content-type: application/json',
-            'content' => $jsonDataEncoded
+            'header'  => 'Content-type: application/x-www-form-urlencoded',
+            'content' => $postdata
         )
     );
     $context = stream_context_create($opts);
