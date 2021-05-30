@@ -35,24 +35,31 @@ $break='
 ';
     $a = explode($break,$buffer);
     foreach($a as $k => $v){
-            $pos = strpos($v, $search);
-            $pos2 = strpos($v, 'T');
-            if ($pos !== false && $pos2 !== false) {
-               // echo "$k $v  \r\n";
+            $pos2 = strpos($v, 'AVAIL');
+            if ($pos2 !== false) {
+                echo "$v  \r\n";
                 $i++;
             } 
     }
-    echo "NVME TB: $i \r\n";
+    foreach($a as $k => $v){
+            $pos = strpos($v, $search);
+            $pos2 = strpos($v, 'T');
+            if ($pos !== false && $pos2 !== false) {
+                echo "$v  \r\n";
+                $i++;
+            } 
+    }
+    echo "NVME TEMP TB: $i \r\n";
     if ($i==0){ // no TB NVME found, look for MB
         foreach($a as $k => $v){
                 $pos = strpos($v, $search);
                 $pos2 = strpos($v, 'M');
                 if ($pos !== false && $pos2 !== false) {
-               //     echo "$k $v  \r\n";
+                    echo "$v  \r\n";
                     $i++;
                 } 
         }
-        echo "NVME MB: $i \r\n";
+        echo "NVME TEMP MB: $i \r\n";
     }
 }
 function ps_count($search){ 
