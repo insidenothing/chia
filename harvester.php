@@ -166,7 +166,7 @@ $break='
                 $i++;
             } 
     }
-    echo "Active Plotting: $i \r\n";
+    echo "$i";
         $buffer = ob_get_clean();
     echo $buffer;
     return $buffer;
