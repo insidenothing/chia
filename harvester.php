@@ -61,6 +61,16 @@ $break='
         }
         echo "NVME TEMP MB: $i \r\n";
     }
+    $i=0;
+    foreach($a as $k => $v){
+        $pos = strpos($v, 'Seagate');
+        $pos2 = strpos($v, 'Expansion');
+        if ($pos !== false || $pos2 !== false) {
+            echo "$v  \r\n";
+            $i++;
+        } 
+    echo "Final Drives: $i \r\n";
+    }
 }
 function ps_count($search){ 
     $i=0;
