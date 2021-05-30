@@ -43,6 +43,17 @@ $break='
             } 
     }
     echo "NVME TB: $i \r\n";
+    if ($i==0){
+        foreach($a as $k => $v){
+                $pos = strpos($v, $search);
+                $pos2 = strpos($v, 'M');
+                if ($pos !== false && $pos2 !== false) {
+                    echo "$k $v  \r\n";
+                    $i++;
+                } 
+        }
+        echo "NVME MB: $i \r\n";
+    }
 }
 function ps_count($search){ 
     $i=0;
