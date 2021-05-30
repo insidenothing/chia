@@ -1,4 +1,17 @@
 <?PHP
+function uplink(){
+    $url = 'https://www.bmorecoin.com/harvester_uplink.php';
+    $ch = curl_init($url);
+    $jsonData = array(
+        'x1' => 'xOne',
+        'x2' => 'xTwo'
+    );
+    $jsonDataEncoded = json_encode($jsonData);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json')); 
+    $result = curl_exec($ch);   
+}
 function log_search($search,$stars){ 
     $file = '/home/dad/.chia/mainnet/log/debug.log';
     $handle = fopen($file, "r");
@@ -157,5 +170,6 @@ while(true)
     ps_count('chia plots create');
     disk_stats('nvme');
     log_last('Total','Last Plot Count');
+    uplink();
     sleep(60); // sleep for 240 sec
 }
