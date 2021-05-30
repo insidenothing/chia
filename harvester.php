@@ -38,7 +38,7 @@ $break='
             $pos2 = strpos($v, 'Avail');
             if ($pos2 !== false) {
                 $t = "$v  \r\n";
-                $i++;
+
             } 
     }
     foreach($a as $k => $v){
