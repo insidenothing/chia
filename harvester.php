@@ -17,6 +17,7 @@ function log_search($search,$stars){
 }
 function log_count($search,$stars){ 
     $file = '/home/dad/.chia/mainnet/log/debug.log';
+    $handle = fopen($file, "r");
     $i=0;
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
