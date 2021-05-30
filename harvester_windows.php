@@ -17,7 +17,7 @@ function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active
     );
    $query = http_build_query($data);
     $encoded = urlencode($query);
-    $result = file_get_contents($url.'?'.$encoded);
+    $result = file_get_contents($url.'?'.$encoded, false);
     var_dump($result);
     /*
     $options = array(
