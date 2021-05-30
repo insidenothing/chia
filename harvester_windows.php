@@ -1,7 +1,9 @@
 <?PHP
 function uplink($datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free){
-   $url = 'https://www.bmorecoin.com/harvester_uplink.php';
+    $db = mysqli_connect('watchdog-cluster-1.cluster-cmhaak521ogd.us-east-1.rds.amazonaws.com','service_user','service_pass','core') or die(mysqli_error($db));
+    $url = 'https://www.bmorecoin.com/harvester_uplink.php';
     $ch = curl_init($url);
+    $datetime = $db->real_escape_string($datetime);
     $jsonData = array(
         'os' => "Windows",
         'datetime' => "$datetime",
