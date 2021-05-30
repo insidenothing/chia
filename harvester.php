@@ -53,7 +53,7 @@ $break='
     if ($i==0){ // no TB NVME found, look for MB
         foreach($a as $k => $v){
                 $pos = strpos($v, $search);
-                $pos2 = strpos($v, 'M');
+                $pos2 = strpos($v, 'G');
                 if ($pos !== false && $pos2 !== false) {
                     echo "$t $v  \r\n";
                     $i++;
