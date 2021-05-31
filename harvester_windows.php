@@ -193,7 +193,7 @@ while(true)
     $x3 = log_count('3 plots were eligible','***');
     $x4 = log_count('4 plots were eligible','****');
     $proofs = log_search('Found 1 proofs.','!!!!!!!!');
-    $active_ploting = ps_count('chia plots create');
+    $active_ploting = ps_count('chia');
     $disk_temp_free = disk_stats('nvme');
     $disk_final_free = final_disk_stats('nvme');
     $total_plots = log_last('Total','Last Plot Count');
