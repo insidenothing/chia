@@ -152,8 +152,8 @@ function log_count($search,$stars){
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
             $pos = strpos($line, $search);
-            $pos2 = strpos($line, date('Y-m-d'));
-            if ($pos !== false && $pos2 !== false) {
+            //$pos2 = strpos($line, date('Y-m-d'));
+            if ($pos !== false) {
                      //echo "$stars $line ";
                 $i++;
             } 
@@ -199,10 +199,10 @@ while(true)
     $hostname=gethostname();
     echo "\r\n \r\n \r\n";
     echo "Harvester Stats ".$datetime." ".$hostname." \r\n";
-   // $x1 = log_count('1 plots were eligible','*');
-  //  $x2 = log_count('2 plots were eligible','**');
-  //  $x3 = log_count('3 plots were eligible','***');
-  //  $x4 = log_count('4 plots were eligible','****');
+    $x1 = log_count('1 plots were eligible','*');
+    $x2 = log_count('2 plots were eligible','**');
+    $x3 = log_count('3 plots were eligible','***');
+    $x4 = log_count('4 plots were eligible','****');
    // $proofs = log_search('Found 1 proofs.','!!!!!!!!');
   //  $active_ploting = ps_count('chia plots create');
     $disk_temp_free = disk_stats('nvme');
