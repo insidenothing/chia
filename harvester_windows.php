@@ -1,11 +1,12 @@
 <?PHP
-function uplink($os,$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free){
+function uplink($netspace,$os,$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free){
     $db = mysqli_connect('watchdog-cluster-1.cluster-cmhaak521ogd.us-east-1.rds.amazonaws.com','service_user','service_pass','core') or die(mysqli_error($db));
     $url = 'https://www.bmorecoin.com/harvester_uplink.php';
     $ch = curl_init($url);
     $datetime = $db->real_escape_string($datetime);
     $jsonData = array(
         'os' => "Windows",
+        'netspace' => "$netspace",
         'datetime' => "$datetime",
         'hostname' => "$hostname",
         'total_plots' => "$total_plots",
@@ -182,6 +183,34 @@ function log_last($search,$title){
     return $buffer;
 }
 
+function netspace(){ 
+    ob_start();
+    $i=0;
+    ob_start();
+    $last_line = system('C:\Users\Patrick\AppData\Local\chia-blockchain\app-1.1.6\resources\app.asar.unpacked\daemon\chia.exe show -s', $retval);
+    $buffer = ob_get_clean();
+$break='
+';
+    $a = explode($break,$buffer);
+    foreach($a as $k => $v){
+              $pos2 = strpos($v, 'EiB');
+          if ($pos2 !== false) {
+              $parts = explode(':',$v);  
+              $size = trim($parts[1]);
+              $justEiB = str_replace('EiB','',$size);
+              $netspace = trim($justEiB);
+              $tb = $netspace * 1.153e+6;
+              echo "$tb \r\n";
+            } 
+    }
+    
+
+    $buffer = ob_get_clean();
+    echo $buffer;
+    return $buffer;
+}
+
+
 while(true)
 {
     $datetime = date('r');
@@ -197,6 +226,7 @@ while(true)
     $disk_temp_free = disk_stats('nvme');
     $disk_final_free = final_disk_stats('nvme');
     $total_plots = log_last('Total','Last Plot Count');
-    uplink('Windows',$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free);
+    $netspace = netspace();
+    uplink($netspace,'Windows',$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free);
     sleep(120); // sleep for 240 sec
 }
