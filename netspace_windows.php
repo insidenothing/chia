@@ -41,7 +41,8 @@ $break='
               $size = trim($parts[1]);
               $justEiB = str_replace('EiB','',$size);
               $netspace = trim($justEiB);
-              echo "$netspace \r\n";
+              $tb = $netspace * 1.153e+6;
+              echo "$tb \r\n";
             } 
     }
     
