@@ -124,7 +124,7 @@ $break='
     foreach($a as $k => $v){
             $pos = strpos($v, $search);
             if ($pos !== false) {
-                echo "$k $v  \r\n";
+               // echo "$k $v  \r\n";
                 $i++;
             } 
     }
