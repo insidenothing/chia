@@ -53,7 +53,7 @@ function disk_stats($search){
 // Outputs all the result of shellcommand "ls", and returns
 // the last output line into $last_line. Stores the return value
 // of the shell command in $retval.
-$last_line = system('wmic /node:"%COMPUTERNAME%" LogicalDisk Where DriveType="3" Get DeviceID,FreeSpace|find /I "d:"', $retval);
+$last_line = system('wmic /node:"%COMPUTERNAME%" LogicalDisk Where DriveType="3" Get DeviceID,FreeSpace|find /I "c:"', $retval);
 
 // Printing additional info
 //echo '
