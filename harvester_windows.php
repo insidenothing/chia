@@ -73,7 +73,7 @@ $break='
             } 
     }
     
-   
+    echo "Temp Drives: $i \r\n";
         $buffer = ob_get_clean();
     echo $buffer;
     return $buffer;
