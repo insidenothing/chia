@@ -31,8 +31,8 @@ function log_search($search,$stars){
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
             $pos = strpos($line, $search);
-            $pos2 = strpos($line, date('Y-m-d'));
-            if ($pos !== false && $pos2 !== false) {
+            //$pos2 = strpos($line, date('Y-m-d'));
+            if ($pos !== false) {
                      echo "$stars $line ";
             } 
         }
@@ -81,19 +81,8 @@ $break='
 function final_disk_stats($search){ 
     ob_start();
     $i=0;
-  ob_start();
-    //echo '<pre>';
-
-// Outputs all the result of shellcommand "ls", and returns
-// the last output line into $last_line. Stores the return value
-// of the shell command in $retval.
-$last_line = system('wmic /node:"%COMPUTERNAME%" LogicalDisk Where DriveType="3" Get DeviceID,FreeSpace|find /I "d:"', $retval);
-
-// Printing additional info
-//echo '
-//</pre>
-//<hr />Last line of the output: ' . $last_line . '
-//<hr />Return value: ' . $retval; 
+    ob_start();
+    $last_line = system('wmic /node:"%COMPUTERNAME%" LogicalDisk Where DriveType="3" Get DeviceID,FreeSpace|find /I "d:"', $retval); 
     $buffer = ob_get_clean();
 $break='
 ';
@@ -203,8 +192,8 @@ while(true)
     $x2 = log_count('2 plots were eligible','**');
     $x3 = log_count('3 plots were eligible','***');
     $x4 = log_count('4 plots were eligible','****');
-   // $proofs = log_search('Found 1 proofs.','!!!!!!!!');
-  //  $active_ploting = ps_count('chia plots create');
+    $proofs = log_search('Found 1 proofs.','!!!!!!!!');
+    //$active_ploting = ps_count('chia plots create');
     $disk_temp_free = disk_stats('nvme');
     $disk_final_free = final_disk_stats('nvme');
     $total_plots = log_last('Total','Last Plot Count');
