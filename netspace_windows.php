@@ -28,29 +28,20 @@ function uplink($os,$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$ac
 function netspace(){ 
     ob_start();
     $i=0;
-  ob_start();
-    //echo '<pre>';
-
-// Outputs all the result of shellcommand "ls", and returns
-// the last output line into $last_line. Stores the return value
-// of the shell command in $retval.
-$last_line = system('C:\Users\Patrick\AppData\Local\chia-blockchain\app-1.1.6\resources\app.asar.unpacked\daemon\chia.exe show -s', $retval);
-
-// Printing additional info
-//echo '
-//</pre>
-//<hr />Last line of the output: ' . $last_line . '
-//<hr />Return value: ' . $retval; 
+    ob_start();
+    $last_line = system('C:\Users\Patrick\AppData\Local\chia-blockchain\app-1.1.6\resources\app.asar.unpacked\daemon\chia.exe show -s', $retval);
     $buffer = ob_get_clean();
 $break='
 ';
     $a = explode($break,$buffer);
-    
     foreach($a as $k => $v){
               $pos2 = strpos($v, 'EiB');
           if ($pos2 !== false) {
-                echo "$v  \r\n";
-            
+              $parts = explode(':',$v);  
+              $size = trim($parts[1]);
+              $justEiB = str_replace('EiB','',$size);
+              $netspace = trim($justEiB);
+              echo "$netspace \r\n";
             } 
     }
     
