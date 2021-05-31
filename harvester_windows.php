@@ -53,7 +53,7 @@ function disk_stats($search){
 // Outputs all the result of shellcommand "ls", and returns
 // the last output line into $last_line. Stores the return value
 // of the shell command in $retval.
-$last_line = system('df -h', $retval);
+$last_line = system('wmic /node:"%COMPUTERNAME%" LogicalDisk Where DriveType="3" Get DeviceID,FreeSpace|find /I "d:"', $retval);
 
 // Printing additional info
 //echo '
@@ -64,35 +64,16 @@ $last_line = system('df -h', $retval);
 $break='
 ';
     $a = explode($break,$buffer);
+    
     foreach($a as $k => $v){
-            $pos2 = strpos($v, 'Avail');
+              $pos2 = strpos($v, 'C');
             if ($pos2 !== false) {
-                $t = "$v  \r\n";
-
-            } 
-    }
-    foreach($a as $k => $v){
-            $pos = strpos($v, $search);
-            $pos2 = strpos($v, 'T');
-            if ($pos !== false && $pos2 !== false) {
-                echo "$t $v  \r\n";
+                echo "$v  \r\n";
                 $i++;
             } 
     }
     
-    if ($i==0){ // no TB NVME found, look for MB
-        foreach($a as $k => $v){
-                $pos = strpos($v, $search);
-                $pos2 = strpos($v, 'G');
-                if ($pos !== false && $pos2 !== false) {
-                    echo "$t $v  \r\n";
-                    $i++;
-                } 
-        }
-        echo "NVME TEMP MB: $i \r\n";
-    }else{
-     echo "NVME TEMP TB: $i \r\n";   
-    }
+   
         $buffer = ob_get_clean();
     echo $buffer;
     return $buffer;
@@ -106,7 +87,7 @@ function final_disk_stats($search){
 // Outputs all the result of shellcommand "ls", and returns
 // the last output line into $last_line. Stores the return value
 // of the shell command in $retval.
-$last_line = system('df -h', $retval);
+$last_line = system('wmic /node:"%COMPUTERNAME%" LogicalDisk Where DriveType="3" Get DeviceID,FreeSpace|find /I "d:"', $retval);
 
 // Printing additional info
 //echo '
@@ -118,25 +99,14 @@ $break='
 ';
     $a = explode($break,$buffer);
     foreach($a as $k => $v){
-            $pos2 = strpos($v, 'Avail');
+            $pos2 = strpos($v, 'D');
             if ($pos2 !== false) {
                 $t = "$v  \r\n";
-
+                echo $t;
+                $i++;
             } 
     }
-    $i=0;
-    foreach($a as $k => $v){
-        $pos = strpos($v, 'Seagate');
-        $pos2 = strpos($v, 'Expansion');
-        if ($pos !== false) {
-            echo "$t $v  \r\n";
-            $i++;
-        } 
-        if ($pos2 !== false) {
-            echo "$t $v  \r\n";
-            $i++;
-        } 
-    }
+    
     echo "Final Drives: $i \r\n";
         $buffer = ob_get_clean();
     echo $buffer;
@@ -235,8 +205,8 @@ while(true)
   //  $x4 = log_count('4 plots were eligible','****');
    // $proofs = log_search('Found 1 proofs.','!!!!!!!!');
   //  $active_ploting = ps_count('chia plots create');
- //   $disk_temp_free = disk_stats('nvme');
-  //  $disk_final_free = final_disk_stats('nvme');
+    $disk_temp_free = disk_stats('nvme');
+    $disk_final_free = final_disk_stats('nvme');
     $total_plots = log_last('Total','Last Plot Count');
     uplink('Windows',$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free);
     sleep(120); // sleep for 240 sec
