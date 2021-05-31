@@ -110,7 +110,7 @@ function ps_count($search){
 // Outputs all the result of shellcommand "ls", and returns
 // the last output line into $last_line. Stores the return value
 // of the shell command in $retval.
-$last_line = system('ps -h', $retval);
+$last_line = system('wmic process list', $retval);
 
 // Printing additional info
 //echo '
