@@ -27,6 +27,7 @@ function uplink($netspace,$os,$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$
 }
 function log_search($search,$stars,$file_name){ 
     ob_start();
+    $i=0;
     $file = 'C:\Users\Patrick\.chia\mainnet\log\\'.$file_name;
     $handle = fopen($file, "r");
     if ($handle) {
@@ -34,13 +35,15 @@ function log_search($search,$stars,$file_name){
             $pos = strpos($line, $search);
             //$pos2 = strpos($line, date('Y-m-d'));
             if ($pos !== false) {
-                     echo "$stars $line ";
+                    // echo "$stars $line ";
+                $i++;
             } 
         }
         fclose($handle);
     } else {
         // error opening the file.
     } 
+    echo $i;
         $buffer = ob_get_clean();
     echo $buffer;
     return $buffer;
