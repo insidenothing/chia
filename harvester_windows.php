@@ -33,8 +33,8 @@ function log_search($search,$stars,$file_name){
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
             $pos = strpos($line, $search);
-            //$pos2 = strpos($line, date('Y-m-d'));
-            if ($pos !== false) {
+            $pos2 = strpos($line, date('Y-m-d'));
+            if ($pos !== false && $pos2 !== false) {
                     // echo "$stars $line ";
                 $i++;
             } 
@@ -145,8 +145,8 @@ function log_count($search,$stars,$file_name){
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
             $pos = strpos($line, $search);
-            //$pos2 = strpos($line, date('Y-m-d'));
-            if ($pos !== false) {
+            $pos2 = strpos($line, date('Y-m-d'));
+            if ($pos !== false && $pos2 !== false) {
                      //echo "$stars $line ";
                 $i++;
             } 
@@ -167,7 +167,6 @@ function log_last($search,$title,$file_name){
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
             $pos = strpos($line, $search);
-            //$pos2 = strpos($line, date('Y-m-d'));
             if ($pos !== false) {
                      $parts = explode($search,$line);
                      $count = $parts[1];
@@ -216,7 +215,7 @@ $break='
 
 while(true)
 {
-    $datetime = date('r');
+    $datetime =  date('Y-m-d');
     $hostname=gethostname();
     echo "\r\n \r\n \r\n";
     echo "Harvester Stats ".$datetime." ".$hostname." \r\n";
