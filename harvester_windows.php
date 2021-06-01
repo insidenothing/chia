@@ -225,7 +225,7 @@ while(true)
     $x3 = log_count('3 plots were eligible','***','debug.log');
     $x4 = log_count('4 plots were eligible','****','debug.log');
     $proofs = log_search('Found 1 proofs.','!!!!!!!!','debug.log');
-    foreach (range(1,10) as $number){
+    foreach (range(1,7) as $number){
         $x1 = $x1 + log_count('1 plots were eligible','*','debug.log.'.$number);
         $x2 = $x2 + log_count('2 plots were eligible','**','debug.log.'.$number);
         $x3 = $x3 + log_count('3 plots were eligible','***','debug.log.'.$number);
