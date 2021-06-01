@@ -25,9 +25,9 @@ function uplink($netspace,$os,$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json')); 
     $result = curl_exec($ch);   
 }
-function log_search($search,$stars){ 
+function log_search($search,$stars,$file_name){ 
     ob_start();
-    $file = 'C:\Users\Patrick\.chia\mainnet\log\debug.log';
+    $file = 'C:\Users\Patrick\.chia\mainnet\log\\'.$file_name;
     $handle = fopen($file, "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
@@ -134,9 +134,9 @@ $break='
     echo $buffer;
     return $buffer;
 }
-function log_count($search,$stars){ 
+function log_count($search,$stars,$file_name){ 
     ob_start();
-    $file = 'C:\Users\Patrick\.chia\mainnet\log\debug.log';
+    $file = 'C:\Users\Patrick\.chia\mainnet\log\\'.$file_name;
     $handle = fopen($file, "r");
     $i=0;
     if ($handle) {
@@ -157,9 +157,9 @@ function log_count($search,$stars){
     echo $buffer;
     return $buffer;
 }
-function log_last($search,$title){ 
+function log_last($search,$title,$file_name){ 
     ob_start();
-    $file = 'C:\Users\Patrick\.chia\mainnet\log\debug.log';
+    $file = 'C:\Users\Patrick\.chia\mainnet\log\\'.$file_name;
     $handle = fopen($file, "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
@@ -217,15 +217,22 @@ while(true)
     $hostname=gethostname();
     echo "\r\n \r\n \r\n";
     echo "Harvester Stats ".$datetime." ".$hostname." \r\n";
-    $x1 = log_count('1 plots were eligible','*');
-    $x2 = log_count('2 plots were eligible','**');
-    $x3 = log_count('3 plots were eligible','***');
-    $x4 = log_count('4 plots were eligible','****');
-    $proofs = log_search('Found 1 proofs.','!!!!!!!!');
+    $x1 = log_count('1 plots were eligible','*','debug.log');
+    $x2 = log_count('2 plots were eligible','**','debug.log');
+    $x3 = log_count('3 plots were eligible','***','debug.log');
+    $x4 = log_count('4 plots were eligible','****','debug.log');
+    $proofs = log_search('Found 1 proofs.','!!!!!!!!','debug.log');
+    foreach (range(1,10) as $number){
+        $x1 = $x1 + log_count('1 plots were eligible','*','debug.log.'.$number);
+        $x2 = $x2 + log_count('2 plots were eligible','**','debug.log.'.$number);
+        $x3 = $x3 + log_count('3 plots were eligible','***','debug.log.'.$number);
+        $x4 = $x4 + log_count('4 plots were eligible','****','debug.log.'.$number);
+        $proofs = $proofs + log_search('Found 1 proofs.','!!!!!!!!','debug.log.'.$number);
+    }
     $active_ploting = ps_count('chia.exe  plots create');
     $disk_temp_free = disk_stats('nvme');
     $disk_final_free = final_disk_stats('nvme');
-    $total_plots = log_last('Total','Last Plot Count');
+    $total_plots = log_last('Total','Last Plot Count','debug.log');
     $netspace = netspace();
     uplink($netspace,'Windows',$datetime,$hostname,$total_plots,$proofs,$x1,$x2,$x3,$x4,$active_ploting,$disk_temp_free,$disk_final_free);
     sleep(120); // sleep for 240 sec
